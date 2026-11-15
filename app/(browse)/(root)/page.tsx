@@ -1,5 +1,6 @@
 import BestPrices from './_components/best-prices'
 import Categories from './_components/categories'
+import CoolestGadgets from './_components/coolest-gadgets'
 import Hero from './_components/hero'
 
 const HomePage = () => {
@@ -8,6 +9,7 @@ const HomePage = () => {
 			<Hero />
 			<Categories />
 			<BestPrices />
+			<CoolestGadgets />
 		</>
 	)
 }
