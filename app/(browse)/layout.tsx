@@ -1,3 +1,4 @@
+import Footer from '@/components/shared/footer'
 import Header from '@/components/shared/header'
 
 const BrowseLayout = ({ children }: LayoutProps<'/'>) => {
@@ -5,6 +6,7 @@ const BrowseLayout = ({ children }: LayoutProps<'/'>) => {
 		<div className='flex min-h-full flex-1 flex-col'>
 			<Header />
 			<main className='flex-1'>{children}</main>
+			<Footer />
 		</div>
 	)
 }
