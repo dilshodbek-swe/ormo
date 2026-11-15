@@ -1,8 +1,8 @@
 import { cacheLife } from 'next/cache'
 import Link from 'next/link'
 
+import { footerLinks } from './footer-links'
 import Logo from './logo'
-import { navLinks } from './nav-links'
 
 const CurrentYear = async () => {
 	'use cache'
@@ -23,7 +23,7 @@ const Footer = () => {
 				</div>
 
 				<nav className='flex flex-wrap gap-x-6 gap-y-2'>
-					{navLinks.map(({ href, label }) => (
+					{footerLinks.map(({ href, label }) => (
 						<Link
 							key={href}
 							href={href}
