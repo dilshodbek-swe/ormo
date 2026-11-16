@@ -1,5 +1,8 @@
+export type ProductCategory = 'cameras' | 'stabilizers' | 'drones' | 'accessories'
+
 export interface Product {
 	id: string
+	category: ProductCategory
 	brand: string
 	name: string
 	oldPrice: number
@@ -10,6 +13,7 @@ export interface Product {
 export const products: Product[] = [
 	{
 		id: 'sony-a6400',
+		category: 'cameras',
 		brand: 'Sony',
 		name: 'Alpha a6400 Body',
 		oldPrice: 11_990_000,
@@ -18,6 +22,7 @@ export const products: Product[] = [
 	},
 	{
 		id: 'dji-mavic-air-2',
+		category: 'drones',
 		brand: 'DJI',
 		name: 'Mavic Air 2 Fly More Combo',
 		oldPrice: 12_900_000,
@@ -26,6 +31,7 @@ export const products: Product[] = [
 	},
 	{
 		id: 'dji-osmo-pocket',
+		category: 'stabilizers',
 		brand: 'DJI',
 		name: 'Osmo Pocket',
 		oldPrice: 4_500_000,
@@ -34,6 +40,7 @@ export const products: Product[] = [
 	},
 	{
 		id: 'nikon-d500',
+		category: 'cameras',
 		brand: 'Nikon',
 		name: 'D500 Kit 16-80mm',
 		oldPrice: 21_500_000,
@@ -42,6 +49,7 @@ export const products: Product[] = [
 	},
 	{
 		id: 'dji-osmo-action',
+		category: 'cameras',
 		brand: 'DJI',
 		name: 'Osmo Action',
 		oldPrice: 3_900_000,
@@ -50,6 +58,7 @@ export const products: Product[] = [
 	},
 	{
 		id: 'dji-mavic-pro',
+		category: 'drones',
 		brand: 'DJI',
 		name: 'Mavic Pro',
 		oldPrice: 14_500_000,
@@ -58,6 +67,7 @@ export const products: Product[] = [
 	},
 	{
 		id: 'nikon-f4',
+		category: 'cameras',
 		brand: 'Nikon',
 		name: 'F4 Film Camera',
 		oldPrice: 8_900_000,
@@ -66,6 +76,7 @@ export const products: Product[] = [
 	},
 	{
 		id: 'dji-spark',
+		category: 'drones',
 		brand: 'DJI',
 		name: 'Spark Mini Drone',
 		oldPrice: 6_200_000,

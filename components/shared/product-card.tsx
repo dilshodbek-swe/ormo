@@ -38,9 +38,11 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 					/>
 				</div>
 
-				<span className='absolute top-2 left-2 rounded-full bg-foreground px-2 py-0.5 font-mono text-[11px] font-medium text-background'>
-					-{discount}%
-				</span>
+				{discount > 0 && (
+					<span className='absolute top-2 left-2 rounded-full bg-foreground px-2 py-0.5 font-mono text-[11px] font-medium text-background'>
+						-{discount}%
+					</span>
+				)}
 
 				<Button
 					variant='outline'
@@ -71,9 +73,11 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 					<p className='font-mono text-sm font-semibold tracking-tight'>
 						{formatPrice(price)}
 					</p>
-					<p className='font-mono text-[11px] text-muted-foreground line-through'>
-						{formatPrice(oldPrice)}
-					</p>
+					{discount > 0 && (
+						<p className='font-mono text-[11px] text-muted-foreground line-through'>
+							{formatPrice(oldPrice)}
+						</p>
+					)}
 				</div>
 			</div>
 		</article>
