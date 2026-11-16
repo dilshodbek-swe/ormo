@@ -16,7 +16,7 @@ const CategoryCard = ({
 
 	return (
 		<Link
-			href={`/${id}`}
+			href={`/catalog?category=${id}`}
 			className={cn(
 				'group flex flex-col overflow-hidden rounded-xl border bg-background transition-colors hover:border-foreground/20',
 				featured ? 'min-h-96 md:row-span-2' : 'min-h-80'

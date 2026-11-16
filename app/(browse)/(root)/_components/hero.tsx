@@ -65,7 +65,7 @@ const Hero = () => {
 
 					<div className='animate-in fade-in slide-in-from-bottom-3 fill-mode-both flex flex-wrap gap-3 delay-300 duration-700'>
 						<Link
-							href='/drones'
+							href='/deals'
 							className={cn(
 								buttonVariants({ size: 'lg' }),
 								'group h-10 px-5'
@@ -75,7 +75,7 @@ const Hero = () => {
 							<ArrowRight className='transition-transform group-hover:translate-x-0.5' />
 						</Link>
 						<Link
-							href='/cameras'
+							href='/catalog'
 							className={cn(
 								buttonVariants({ variant: 'outline', size: 'lg' }),
 								'h-10 px-5'
