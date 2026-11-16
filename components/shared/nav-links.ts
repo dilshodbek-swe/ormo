@@ -1,5 +1,5 @@
 export const navLinks = [
-	{ href: '/cameras', label: 'Kameralar' },
-	{ href: '/stabilizers', label: 'Stabilizatorlar' },
-	{ href: '/drones', label: 'Dronlar' },
+	{ href: '/catalog', label: 'Katalog' },
+	{ href: '/new-arrivals', label: 'Yangi kelganlar' },
+	{ href: '/deals', label: 'Chegirmalar' },
 ] as const
