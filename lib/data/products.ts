@@ -8,6 +8,8 @@ export interface Product {
 	oldPrice: number
 	price: number
 	image: string
+	/** Do'konga qo'shilgan sana (ISO) — "Yangi/Eski" tartiblash uchun */
+	addedAt: string
 }
 
 export const products: Product[] = [
@@ -19,6 +21,7 @@ export const products: Product[] = [
 		oldPrice: 11_990_000,
 		price: 9_790_000,
 		image: '/images/products/camera-1.png',
+		addedAt: '2026-10-28',
 	},
 	{
 		id: 'dji-mavic-air-2',
@@ -28,6 +31,7 @@ export const products: Product[] = [
 		oldPrice: 12_900_000,
 		price: 10_990_000,
 		image: '/images/products/drone-3.png',
+		addedAt: '2026-11-12',
 	},
 	{
 		id: 'dji-osmo-pocket',
@@ -37,6 +41,7 @@ export const products: Product[] = [
 		oldPrice: 4_500_000,
 		price: 3_690_000,
 		image: '/images/products/stabilizer-1.png',
+		addedAt: '2026-09-30',
 	},
 	{
 		id: 'nikon-d500',
@@ -46,6 +51,7 @@ export const products: Product[] = [
 		oldPrice: 21_500_000,
 		price: 18_900_000,
 		image: '/images/products/camera-3.png',
+		addedAt: '2026-07-14',
 	},
 	{
 		id: 'dji-osmo-action',
@@ -55,6 +61,7 @@ export const products: Product[] = [
 		oldPrice: 3_900_000,
 		price: 2_990_000,
 		image: '/images/products/camera-4.png',
+		addedAt: '2026-08-22',
 	},
 	{
 		id: 'dji-mavic-pro',
@@ -64,6 +71,7 @@ export const products: Product[] = [
 		oldPrice: 14_500_000,
 		price: 12_450_000,
 		image: '/images/products/drone-1.png',
+		addedAt: '2026-06-05',
 	},
 	{
 		id: 'nikon-f4',
@@ -73,6 +81,7 @@ export const products: Product[] = [
 		oldPrice: 8_900_000,
 		price: 6_990_000,
 		image: '/images/products/camera-2.png',
+		addedAt: '2026-03-18',
 	},
 	{
 		id: 'dji-spark',
@@ -82,5 +91,6 @@ export const products: Product[] = [
 		oldPrice: 6_200_000,
 		price: 4_990_000,
 		image: '/images/products/drone-2.png',
+		addedAt: '2026-10-03',
 	},
 ]

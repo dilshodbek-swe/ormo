@@ -18,6 +18,7 @@ const gadgetProducts: Product[] = gadgets.map(gadget => ({
 	oldPrice: gadget.price,
 	price: gadget.price,
 	image: gadget.image,
+	addedAt: gadget.addedAt,
 }))
 
 export const catalogProducts: Product[] = [...products, ...gadgetProducts]

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
+import ProductGridSkeleton from '@/components/shared/product-grid-skeleton'
 import CatalogBrowser from './_components/browser/catalog-browser'
-import ProductGridSkeleton from './_components/browser/product-grid-skeleton'
 import CatalogHero from './_components/catalog-hero'
 import Spotlight from './_components/spotlight/spotlight'
 
@@ -20,7 +20,7 @@ const CatalogPage = () => {
 				<Spotlight />
 
 				{/* useSearchParams uchun Suspense chegarasi */}
-				<Suspense fallback={<ProductGridSkeleton />}>
+				<Suspense fallback={<ProductGridSkeleton gridClassName='md:grid-cols-3 lg:grid-cols-4' />}>
 					<CatalogBrowser />
 				</Suspense>
 			</div>

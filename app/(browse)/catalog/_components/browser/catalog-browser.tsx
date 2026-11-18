@@ -1,8 +1,8 @@
 'use client'
 
+import CatalogGrid from './catalog-grid'
 import CatalogToolbar from './catalog-toolbar'
 import EmptyState from './empty-state'
-import ProductGrid from './product-grid'
 import useCatalogFilters from './use-catalog-filters'
 
 const CatalogBrowser = () => {
@@ -24,7 +24,7 @@ const CatalogBrowser = () => {
 			{products.length === 0 ? (
 				<EmptyState />
 			) : (
-				<ProductGrid key={`${category}-${sort}`} products={products} />
+				<CatalogGrid key={`${category}-${sort}`} products={products} />
 			)}
 		</section>
 	)

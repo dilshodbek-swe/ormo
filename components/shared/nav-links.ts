@@ -1,5 +1,5 @@
 export const navLinks = [
 	{ href: '/catalog', label: 'Katalog' },
-	{ href: '/new-arrivals', label: 'Yangi kelganlar' },
+	{ href: '/shop', label: "Do'kon" },
 	{ href: '/deals', label: 'Chegirmalar' },
 ] as const

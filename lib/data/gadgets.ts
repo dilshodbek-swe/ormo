@@ -5,6 +5,8 @@ export interface Gadget {
 	description: string
 	price: number
 	image: string
+	/** Do'konga qo'shilgan sana (ISO) — "Yangi/Eski" tartiblash uchun */
+	addedAt: string
 }
 
 export const gadgets: Gadget[] = [
@@ -16,6 +18,7 @@ export const gadgets: Gadget[] = [
 			"Portret uchun afsonaviy linza — ajoyib bokeh va kristaldek tiniqlik.",
 		price: 14_900_000,
 		image: '/images/gadgets/sigma-85mm.png',
+		addedAt: '2026-11-15',
 	},
 	{
 		id: 'studio-condenser-mic',
@@ -25,6 +28,7 @@ export const gadgets: Gadget[] = [
 			'Podkast va ovoz yozish uchun amortizatorli kondensator mikrofon.',
 		price: 2_490_000,
 		image: '/images/gadgets/studio-mic.png',
+		addedAt: '2026-09-09',
 	},
 	{
 		id: 'wireless-monitor-headphones',
@@ -34,6 +38,7 @@ export const gadgets: Gadget[] = [
 			"Montaj va ovozni nazorat qilish uchun aniq, shovqinsiz simsiz naushnik.",
 		price: 3_190_000,
 		image: '/images/gadgets/headphones.png',
+		addedAt: '2026-08-01',
 	},
 	{
 		id: 'nikon-sb-700',
@@ -43,6 +48,7 @@ export const gadgets: Gadget[] = [
 			"Burilib turadigan bosh va aqlli TTL — har qanday sharoitda to'g'ri yorug'lik.",
 		price: 4_350_000,
 		image: '/images/gadgets/speedlight.png',
+		addedAt: '2026-05-20',
 	},
 	{
 		id: 'oculus-rift-vr',
@@ -51,6 +57,7 @@ export const gadgets: Gadget[] = [
 		description: '360° videolaringizni ichidan turib tomosha qiling.',
 		price: 6_700_000,
 		image: '/images/gadgets/vr-headset.png',
+		addedAt: '2026-04-11',
 	},
 	{
 		id: 'vintage-50mm',
@@ -60,6 +67,7 @@ export const gadgets: Gadget[] = [
 			'Qo\'lda fokuslanadigan klassik linza — kadrlaringizga plyonka ruhi.',
 		price: 1_890_000,
 		image: '/images/gadgets/vintage-50mm.png',
+		addedAt: '2026-02-26',
 	},
 	{
 		id: 'nikon-z50-vlog-kit',
@@ -68,6 +76,7 @@ export const gadgets: Gadget[] = [
 		description: 'Ixcham mirrorless va keng burchakli linza — vlog uchun tayyor to\'plam.',
 		price: 11_400_000,
 		image: '/images/gadgets/nikon-z50-kit.png',
+		addedAt: '2026-11-06',
 	},
 	{
 		id: 'wireless-handheld-mic',
@@ -76,5 +85,6 @@ export const gadgets: Gadget[] = [
 		description: "Intervyu va jonli efirlar uchun yengil simsiz mikrofon.",
 		price: 1_350_000,
 		image: '/images/gadgets/wireless-mic.png',
+		addedAt: '2026-07-29',
 	},
 ]
