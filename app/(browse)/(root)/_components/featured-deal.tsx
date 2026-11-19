@@ -2,10 +2,10 @@ import { Flame, ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import DiscountBadge from '@/components/shared/discount-badge'
 import { Button } from '@/components/ui/button'
 import type { Product } from '@/lib/data/products'
 import { cn, formatPrice, getDiscount } from '@/lib/utils'
-import DiscountBadge from './discount-badge'
 
 const FeaturedDeal = ({
 	product,

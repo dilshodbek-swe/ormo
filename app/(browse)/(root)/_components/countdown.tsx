@@ -1,19 +1,10 @@
 'use client'
 
 import { Timer } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
-const DAY = 24 * 60 * 60
+import useDayCountdown, { DAY_SECONDS } from '@/lib/hooks/use-day-countdown'
 
 const pad = (n: number) => String(n).padStart(2, '0')
-
-/** Kun oxirigacha qolgan soniyalar */
-const getSecondsLeft = () => {
-	const now = new Date()
-	const end = new Date(now)
-	end.setHours(24, 0, 0, 0)
-	return Math.max(0, Math.floor((end.getTime() - now.getTime()) / 1000))
-}
 
 const Unit = ({ value, label }: { value: number | null; label: string }) => (
 	<div className='flex flex-col items-center gap-1'>
@@ -39,19 +30,8 @@ const Separator = () => (
 )
 
 const Countdown = () => {
-	const [left, setLeft] = useState<number | null>(null)
-
-	useEffect(() => {
-		const tick = () => setLeft(getSecondsLeft())
-		tick()
-		const id = setInterval(tick, 1000)
-		return () => clearInterval(id)
-	}, [])
-
-	const hours = left === null ? null : Math.floor(left / 3600)
-	const minutes = left === null ? null : Math.floor((left % 3600) / 60)
-	const seconds = left === null ? null : left % 60
-	const progress = left === null ? 100 : (left / DAY) * 100
+	const { left, hours, minutes, seconds } = useDayCountdown()
+	const progress = left === null ? 100 : (left / DAY_SECONDS) * 100
 
 	return (
 		<div className='rounded-xl border bg-muted/40 p-4'>

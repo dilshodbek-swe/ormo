@@ -3,10 +3,15 @@
 import { type CSSProperties, useCallback, useEffect, useState } from 'react'
 
 import type { CarouselApi } from '@/components/ui/carousel'
-import { AUTOPLAY_MS } from './picks'
 
-/** Karusel holati: faol slayd, pauza va avtomatik aylanish taymeri */
-const useSpotlight = () => {
+/**
+ * Avtomatik aylanadigan karusel holati: faol slayd, pauza va taymer.
+ *
+ * Aylanish CSS animatsiyasi orqali boshqariladi: `timer` uslubi berilgan indikator
+ * to'lib bo'lgach (onAnimationEnd → `next`) keyingi slaydga o'tiladi.
+ * Pauza paytida animatsiya to'xtaydi — indikator ham, vaqt ham.
+ */
+const useAutoplayCarousel = (durationMs: number) => {
 	const [api, setApi] = useState<CarouselApi>()
 	const [current, setCurrent] = useState(0)
 	const [paused, setPaused] = useState(false)
@@ -24,18 +29,12 @@ const useSpotlight = () => {
 		}
 	}, [api, onSelect])
 
-	/*
-	 * Avtomatik aylanish CSS animatsiyasi orqali boshqariladi:
-	 * faol indikator to'lib bo'lgach (onAnimationEnd) keyingi slaydga o'tamiz.
-	 * Sichqoncha ustida bo'lsa animatsiya pauza qilinadi — loader ham, vaqt ham to'xtaydi.
-	 */
 	const timer: CSSProperties = {
-		animationDuration: `${AUTOPLAY_MS}ms`,
+		animationDuration: `${durationMs}ms`,
 		animationPlayState: paused ? 'paused' : 'running',
 	}
 
 	return {
-		api,
 		setApi,
 		current,
 		paused,
@@ -47,4 +46,4 @@ const useSpotlight = () => {
 	}
 }
 
-export default useSpotlight
+export default useAutoplayCarousel

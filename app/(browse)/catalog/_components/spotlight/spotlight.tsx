@@ -1,14 +1,15 @@
 'use client'
 
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { picks } from './picks'
+import useAutoplayCarousel from '@/lib/hooks/use-autoplay-carousel'
+import { AUTOPLAY_MS, picks } from './picks'
 import SpotlightHeader from './spotlight-header'
 import SpotlightProgress from './spotlight-progress'
 import SpotlightSlide from './spotlight-slide'
-import useSpotlight from './use-spotlight'
 
 const Spotlight = () => {
-	const { setApi, current, paused, setPaused, timer, prev, next, goTo } = useSpotlight()
+	const { setApi, current, paused, setPaused, timer, prev, next, goTo } =
+		useAutoplayCarousel(AUTOPLAY_MS)
 
 	return (
 		<section
