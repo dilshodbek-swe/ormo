@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import BundleOffers from './_components/bundles/bundle-offers'
 import DealsHero from './_components/hero/deals-hero'
 import WeekOffers from './_components/week/week-offers'
 
@@ -13,6 +14,7 @@ const DealsPage = () => {
 		<>
 			<DealsHero />
 			<WeekOffers />
+			<BundleOffers />
 		</>
 	)
 }
