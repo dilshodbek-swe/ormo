@@ -6,9 +6,9 @@ import { type FormEvent, type ReactNode, useEffect, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp'
-import { RESEND_COOLDOWN } from '../_lib/constants'
+import { RESEND_COOLDOWN } from '@/lib/clerk/constants'
 import AuthCard from './auth-card'
-import FormAlert from './form-alert'
+import FormAlert from '@/components/shared/form-alert'
 import SubmitButton from './submit-button'
 
 const CODE_LENGTH = 6

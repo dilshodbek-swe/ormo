@@ -4,9 +4,20 @@ import type { SetActiveNavigate } from '@clerk/nextjs/types'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 
-/** Faqat sayt ichidagi nisbiy yo'llarga ruxsat beramiz (open redirect'ning oldini olish) */
-const safePath = (value: string | null) =>
-	value && value.startsWith('/') && !value.startsWith('//') ? value : '/'
+/**
+ * Faqat o'z saytimizdagi manzilga ruxsat beramiz (open redirect'ning oldini olish).
+ * Clerk middleware to'liq URL beradi (`http://localhost:3000/orders`) — undan yo'lni ajratamiz.
+ */
+const safePath = (value: string | null) => {
+	if (!value) return '/'
+	const origin = typeof window === 'undefined' ? 'http://localhost' : window.location.origin
+	try {
+		const url = new URL(value, origin)
+		return url.origin === origin ? `${url.pathname}${url.search}${url.hash}` : '/'
+	} catch {
+		return '/'
+	}
+}
 
 /**
  * Kirish/ro'yxatdan o'tishdan keyin qayerga qaytishni boshqaradi.

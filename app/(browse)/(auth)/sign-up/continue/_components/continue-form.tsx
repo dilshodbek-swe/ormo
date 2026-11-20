@@ -7,10 +7,10 @@ import { type FormEvent, useEffect, useId, useState } from 'react'
 
 import { Input } from '@/components/ui/input'
 import AuthCard from '../../../_components/auth-card'
-import FormAlert from '../../../_components/form-alert'
-import FormField from '../../../_components/form-field'
+import FormAlert from '@/components/shared/form-alert'
+import FormField from '@/components/shared/form-field'
 import SubmitButton from '../../../_components/submit-button'
-import { globalError, translateError } from '../../../_lib/auth-errors'
+import { globalError, translateError } from '@/lib/clerk/errors'
 import { useAuthRedirect } from '../../../_lib/use-auth-redirect'
 
 /**

@@ -1,3 +1,5 @@
+import { isClerkAPIResponseError } from '@clerk/nextjs/errors'
+
 import { PASSWORD_MIN_LENGTH } from './constants'
 
 /** Clerk xato kodlarining o'zbekcha matnlari. Ro'yxatda yo'q kod uchun Clerk'ning o'z matni ko'rsatiladi. */
@@ -48,3 +50,9 @@ export const translateError = (error: ErrorLike) => {
 /** Maydonga bog'lanmagan (umumiy) xato — maydon xatolari alohida ko'rsatiladi */
 export const globalError = (errors: { global: ErrorLike[] | null }) =>
 	translateError(errors.global?.[0])
+
+/** `user.update()` kabi to'g'ridan-to'g'ri chaqiruvlar tashlagan xatoni matnga aylantiradi */
+export const errorMessage = (error: unknown) =>
+	isClerkAPIResponseError(error)
+		? translateError(error.errors[0])
+		: "Nimadir xato ketdi. Qaytadan urinib ko'ring"

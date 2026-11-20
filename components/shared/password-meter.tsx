@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
-import { PASSWORD_MIN_LENGTH } from '../_lib/constants'
+import { PASSWORD_MIN_LENGTH } from '@/lib/clerk/constants'
 
 /** Parol uzunligini minimal talabga nisbatan ko'rsatuvchi ingichka chiziq */
 const PasswordMeter = ({ value }: { value: string }) => {
