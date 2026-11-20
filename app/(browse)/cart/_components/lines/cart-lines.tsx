@@ -1,16 +1,14 @@
+'use client'
+
 import GridFrame from '@/components/shared/grid-frame'
-import type useCart from '@/lib/cart/use-cart'
+import { useStore } from '@/lib/store'
+import type { CartItem } from '@/lib/store/cart/cart-selectors'
 import CartLine from './cart-line'
 
-type CartItem = ReturnType<typeof useCart>['items'][number]
+const CartLines = ({ items }: { items: CartItem[] }) => {
+	const setCartQuantity = useStore(state => state.setCartQuantity)
+	const removeFromCart = useStore(state => state.removeFromCart)
 
-type Props = {
-	items: CartItem[]
-	onQuantityChange: (id: string, quantity: number) => void
-	onRemove: (id: string) => void
-}
-
-const CartLines = ({ items, onQuantityChange, onRemove }: Props) => {
 	return (
 		<GridFrame>
 			<div
@@ -29,8 +27,8 @@ const CartLines = ({ items, onQuantityChange, onRemove }: Props) => {
 						product={item.product}
 						quantity={item.quantity}
 						stock={item.stock}
-						onQuantityChange={quantity => onQuantityChange(item.id, quantity)}
-						onRemove={() => onRemove(item.id)}
+						onQuantityChange={quantity => setCartQuantity(item.id, quantity)}
+						onRemove={() => removeFromCart(item.id)}
 					/>
 				))}
 			</ul>

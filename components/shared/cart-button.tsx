@@ -4,11 +4,12 @@ import { ShoppingBag } from 'lucide-react'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import useCart from '@/lib/cart/use-cart'
+import { useStore } from '@/lib/store'
+import { selectCartCount } from '@/lib/store/cart/cart-selectors'
 
 /** Headerdagi savat: ichidagi mahsulotlar soni bilan, /cart sahifasiga olib boradi */
 const CartButton = () => {
-	const { count } = useCart()
+	const count = useStore(selectCartCount)
 
 	return (
 		<Button

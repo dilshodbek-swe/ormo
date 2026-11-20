@@ -1,22 +1,19 @@
+'use client'
+
 import { ArrowRight, Lock } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 import GridFrame from '@/components/shared/grid-frame'
 import { Button } from '@/components/ui/button'
-import type { CartTotals } from '@/lib/cart/pricing'
+import { useStore } from '@/lib/store'
+import {
+	selectCartCount,
+	selectCartSavings,
+	useCartTotals,
+} from '@/lib/store/cart/cart-selectors'
 import { cn, formatPrice } from '@/lib/utils'
 import FreeShippingMeter from './free-shipping-meter'
-import PromoCodeForm, { type AppliedPromo } from './promo-code-form'
-
-type Props = {
-	count: number
-	totals: CartTotals
-	/** Mahsulotlarning o'z chegirmalari bo'yicha tejash */
-	savings: number
-	promo: AppliedPromo | null
-	onApplyPromo: (promo: AppliedPromo) => void
-	onRemovePromo: () => void
-}
+import PromoCodeForm from './promo-code-form'
 
 const Row = ({ label, children, className }: { label: string; children: ReactNode; className?: string }) => (
 	<div className={cn('flex items-baseline justify-between gap-4 py-2', className)}>
@@ -26,7 +23,12 @@ const Row = ({ label, children, className }: { label: string; children: ReactNod
 )
 
 /** Chek ko'rinishidagi hisob: oraliq summa, chegirmalar, yetkazish va jami */
-const CartSummary = ({ count, totals, savings, promo, onApplyPromo, onRemovePromo }: Props) => {
+const CartSummary = () => {
+	const count = useStore(selectCartCount)
+	const savings = useStore(selectCartSavings)
+	const promo = useStore(state => state.promo)
+	const totals = useCartTotals()
+
 	return (
 		<GridFrame as='section' className='space-y-6 p-6'>
 			<div className='flex items-center justify-between'>
@@ -66,7 +68,7 @@ const CartSummary = ({ count, totals, savings, promo, onApplyPromo, onRemoveProm
 				</p>
 			</div>
 
-			<PromoCodeForm applied={promo} onApply={onApplyPromo} onRemove={onRemovePromo} />
+			<PromoCodeForm />
 
 			<div className='space-y-3'>
 				<Button size='lg' className='group h-11 w-full justify-between px-4'>

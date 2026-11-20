@@ -5,43 +5,36 @@ import { type FormEvent, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { findPromo } from '@/lib/cart/pricing'
+import { useStore } from '@/lib/store'
 
-export type AppliedPromo = { code: string; percent: number }
-
-type Props = {
-	applied: AppliedPromo | null
-	onApply: (promo: AppliedPromo) => void
-	onRemove: () => void
-}
-
-const PromoCodeForm = ({ applied, onApply, onRemove }: Props) => {
+const PromoCodeForm = () => {
+	const promo = useStore(state => state.promo)
+	const applyPromo = useStore(state => state.applyPromo)
+	const removePromo = useStore(state => state.removePromo)
 	const [code, setCode] = useState('')
 	const [error, setError] = useState(false)
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault()
-		const promo = findPromo(code)
-		if (!promo) {
+		if (applyPromo(code)) {
+			setCode('')
+			setError(false)
+		} else {
 			setError(true)
-			return
 		}
-		onApply(promo)
-		setCode('')
-		setError(false)
 	}
 
-	if (applied) {
+	if (promo) {
 		return (
 			<div className='flex items-center justify-between rounded-lg border border-dashed border-emerald-500/50 bg-emerald-500/5 px-3 py-2'>
 				<p className='flex items-center gap-2 font-mono text-xs'>
 					<Tag className='size-3.5 text-emerald-600' />
-					<span className='font-semibold'>{applied.code}</span>
-					<span className='text-muted-foreground'>· -{applied.percent}%</span>
+					<span className='font-semibold'>{promo.code}</span>
+					<span className='text-muted-foreground'>· -{promo.percent}%</span>
 				</p>
 				<button
 					type='button'
-					onClick={onRemove}
+					onClick={removePromo}
 					aria-label='Promo-kodni olib tashlash'
 					className='flex size-6 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground'
 				>

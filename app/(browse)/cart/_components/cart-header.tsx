@@ -1,12 +1,14 @@
+'use client'
+
 import type { ReactNode } from 'react'
 
-type Props = {
-	count: number
-	/** O'ng tomondagi amal (masalan, tozalash tugmasi) */
-	action?: ReactNode
-}
+import { useStore } from '@/lib/store'
+import { selectCartCount } from '@/lib/store/cart/cart-selectors'
 
-const CartHeader = ({ count, action }: Props) => {
+/** O'ng tomondagi amal (masalan, tozalash tugmasi) tashqaridan beriladi */
+const CartHeader = ({ action }: { action?: ReactNode }) => {
+	const count = useStore(selectCartCount)
+
 	return (
 		<div className='flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between'>
 			<div className='space-y-3'>

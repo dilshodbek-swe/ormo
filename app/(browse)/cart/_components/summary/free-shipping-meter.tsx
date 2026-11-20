@@ -1,6 +1,6 @@
 import { Truck } from 'lucide-react'
 
-import { FREE_SHIPPING_FROM } from '@/lib/cart/pricing'
+import { FREE_SHIPPING_FROM } from '@/lib/store/cart/cart-pricing'
 import { cn, formatPrice } from '@/lib/utils'
 
 /** Bepul yetkazishgacha qancha qolgani — olov rangidagi to'lib boruvchi chiziq */

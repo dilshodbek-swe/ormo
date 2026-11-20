@@ -5,26 +5,27 @@ import { useEffect, useRef, useState } from 'react'
 
 import QuantityStepper from '@/components/shared/quantity-stepper'
 import { Button } from '@/components/ui/button'
-import useCart from '@/lib/cart/use-cart'
 import type { ProductWithDetails } from '@/lib/data/product-details'
+import { useStore } from '@/lib/store'
+import { selectQuantityOf } from '@/lib/store/cart/cart-selectors'
 import { formatPrice } from '@/lib/utils'
 
 /** Miqdor tanlash va savatga qo'shish — savatdagi mavjud sonni hisobga oladi */
 const ProductPurchase = ({ product }: { product: ProductWithDetails }) => {
-	const { add, quantityOf } = useCart()
+	const addToCart = useStore(state => state.addToCart)
+	const inCart = useStore(selectQuantityOf(product.id))
 	const [quantity, setQuantity] = useState(1)
 	const [added, setAdded] = useState(false)
 	const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
 
 	useEffect(() => () => clearTimeout(timer.current), [])
 
-	const inCart = quantityOf(product.id)
 	// Ombordan ortiq qo'shib bo'lmaydi
 	const available = Math.max(0, product.stock - inCart)
 	const clamped = Math.min(quantity, Math.max(available, 1))
 
 	const handleAdd = () => {
-		add(product.id, clamped)
+		addToCart(product.id, clamped)
 		setQuantity(1)
 		setAdded(true)
 		clearTimeout(timer.current)

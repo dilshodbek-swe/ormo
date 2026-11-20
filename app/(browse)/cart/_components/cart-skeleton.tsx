@@ -1,7 +1,7 @@
 /** Savat brauzer xotirasidan o'qilguncha — bo'sh savatni bir lahza ko'rsatib yubormaslik uchun */
 const CartSkeleton = () => {
 	return (
-		<div className='grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem]'>
+		<div className='grid gap-8 xl:grid-cols-[minmax(0,1fr)_24rem]'>
 			<div className='divide-y border'>
 				{Array.from({ length: 3 }, (_, index) => (
 					<div key={index} className='flex items-center gap-4 p-5'>

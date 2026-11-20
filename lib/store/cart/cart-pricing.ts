@@ -8,7 +8,12 @@ export const PROMO_CODES: Record<string, number> = {
 	KADR5: 5,
 }
 
-export const findPromo = (code: string) => {
+export interface AppliedPromo {
+	code: string
+	percent: number
+}
+
+export const findPromo = (code: string): AppliedPromo | null => {
 	const normalized = code.trim().toUpperCase()
 	const percent = PROMO_CODES[normalized]
 	return percent ? { code: normalized, percent } : null
@@ -27,13 +32,13 @@ export const computeTotals = (subtotal: number, promoPercent = 0): CartTotals =>
 	const promoDiscount = Math.round((subtotal * promoPercent) / 100)
 	const afterPromo = subtotal - promoDiscount
 	const isFree = subtotal === 0 || afterPromo >= FREE_SHIPPING_FROM
-	const shipping = isFree ? 0 : SHIPPING_FEE
 
 	return {
 		subtotal,
 		promoDiscount,
-		shipping,
-		total: afterPromo + shipping,
-		untilFreeShipping: subtotal === 0 ? FREE_SHIPPING_FROM : Math.max(0, FREE_SHIPPING_FROM - afterPromo),
+		shipping: isFree ? 0 : SHIPPING_FEE,
+		total: afterPromo + (isFree ? 0 : SHIPPING_FEE),
+		untilFreeShipping:
+			subtotal === 0 ? FREE_SHIPPING_FROM : Math.max(0, FREE_SHIPPING_FROM - afterPromo),
 	}
 }

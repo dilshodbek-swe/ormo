@@ -4,7 +4,7 @@ import { Check, Plus } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import useCart from '@/lib/cart/use-cart'
+import { useStore } from '@/lib/store'
 import { cn } from '@/lib/utils'
 
 interface AddToCartIconButtonProps {
@@ -15,14 +15,14 @@ interface AddToCartIconButtonProps {
 
 /** Kartadagi kichik "+" tugma: bosilganda savatga qo'shadi va bir lahza "✓" ko'rsatadi */
 const AddToCartIconButton = ({ productId, productName, className }: AddToCartIconButtonProps) => {
-	const { add } = useCart()
+	const addToCart = useStore(state => state.addToCart)
 	const [added, setAdded] = useState(false)
 	const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
 
 	useEffect(() => () => clearTimeout(timer.current), [])
 
 	const handleClick = () => {
-		add(productId)
+		addToCart(productId)
 		setAdded(true)
 		clearTimeout(timer.current)
 		timer.current = setTimeout(() => setAdded(false), 1200)
