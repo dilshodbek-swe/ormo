@@ -22,6 +22,18 @@ const useShopFilters = () => {
 	const searchParams = useSearchParams()
 	const [filters, setFilters] = useState(() => parseFilters(searchParams))
 
+	/*
+	 * URL tashqaridan o'zgarsa (masalan, header'dagi qidiruv /shop?q=... ga o'tkazsa) — filtrlarni
+	 * qayta o'qiymiz. O'zimiz yozgan replaceState URL'i serializeFilters bilan bir xil bo'ladi,
+	 * shuning uchun u e'tiborsiz qoladi va yozilayotgan matn (masalan, oxiridagi bo'shliq) buzilmaydi.
+	 */
+	const urlKey = searchParams.toString()
+	const [syncedKey, setSyncedKey] = useState(urlKey)
+	if (urlKey !== syncedKey) {
+		setSyncedKey(urlKey)
+		if (urlKey !== serializeFilters(filters)) setFilters(parseFilters(searchParams))
+	}
+
 	const update = (patch: Partial<ShopFilters>) => {
 		const next = { ...filters, ...patch }
 		setFilters(next)

@@ -1,9 +1,7 @@
-import { Search } from 'lucide-react'
-
-import { Button } from '@/components/ui/button'
 import CartButton from './cart-button'
 import Logo from './logo'
 import Nav from './nav'
+import SearchCommand from './search/search-command'
 
 const Header = () => {
 	return (
@@ -14,24 +12,7 @@ const Header = () => {
 				<Nav className='hidden md:flex' />
 
 				<div className='ml-auto flex items-center gap-2'>
-					<Button
-						variant='outline'
-						className='hidden w-56 justify-start text-muted-foreground sm:inline-flex'
-					>
-						<Search />
-						<span>Qidirish...</span>
-						<kbd className='ml-auto rounded border bg-muted px-1.5 font-mono text-[10px]'>
-							Ctrl K
-						</kbd>
-					</Button>
-					<Button
-						variant='ghost'
-						size='icon'
-						className='sm:hidden'
-						aria-label='Qidirish'
-					>
-						<Search />
-					</Button>
+					<SearchCommand />
 					<CartButton />
 				</div>
 			</div>

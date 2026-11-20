@@ -1,5 +1,6 @@
 import { catalogCategories } from '@/lib/data/catalog'
 import type { Product } from '@/lib/data/products'
+import { productMatches } from '@/lib/data/search'
 
 export const sorts = [
 	{ id: 'newest', label: 'Yangi' },
@@ -78,9 +79,6 @@ export const countActiveFilters = (filters: ShopFilters) =>
 		filters.minPrice !== null || filters.maxPrice !== null,
 	].filter(Boolean).length
 
-const categoryLabel = (id: string) =>
-	catalogCategories.find(item => item.id === id)?.label ?? ''
-
 const compare: Record<SortId, (a: Product, b: Product) => number> = {
 	newest: (a, b) => b.addedAt.localeCompare(a.addedAt),
 	oldest: (a, b) => a.addedAt.localeCompare(b.addedAt),
@@ -90,19 +88,10 @@ const compare: Record<SortId, (a: Product, b: Product) => number> = {
 	'name-desc': (a, b) => b.name.localeCompare(a.name),
 }
 
-export const applyFilters = (items: Product[], filters: ShopFilters) => {
-	const query = filters.query.trim().toLowerCase()
-
-	return items
+export const applyFilters = (items: Product[], filters: ShopFilters) =>
+	items
 		.filter(item => filters.category === 'all' || item.category === filters.category)
 		.filter(item => filters.minPrice === null || item.price >= filters.minPrice)
 		.filter(item => filters.maxPrice === null || item.price <= filters.maxPrice)
-		.filter(
-			item =>
-				!query ||
-				`${item.brand} ${item.name} ${categoryLabel(item.category)}`
-					.toLowerCase()
-					.includes(query)
-		)
+		.filter(item => productMatches(item, filters.query))
 		.sort(compare[filters.sort])
-}
