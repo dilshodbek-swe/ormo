@@ -1,3 +1,4 @@
+import AuthButtons from './auth-buttons'
 import CartButton from './cart-button'
 import Logo from './logo'
 import Nav from './nav'
@@ -14,6 +15,7 @@ const Header = () => {
 				<div className='ml-auto flex items-center gap-2'>
 					<SearchCommand />
 					<CartButton />
+					<AuthButtons />
 				</div>
 			</div>
 
