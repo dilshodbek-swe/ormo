@@ -1,7 +1,6 @@
-import { ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
 
-import { Button } from '@/components/ui/button'
+import AddToCartButton from '@/components/shared/add-to-cart-button'
 import { cn, formatPrice } from '@/lib/utils'
 import { pad, type SpotlightPick } from './picks'
 
@@ -53,13 +52,11 @@ const SpotlightSlide = ({ pick: { tagline, specs, product }, index, isActive }: 
 						<p className='font-mono text-xl font-semibold tracking-tight'>
 							{formatPrice(product.price)}
 						</p>
-						<Button
+						<AddToCartButton
+							productIds={product.id}
 							size='lg'
 							className='h-10 bg-background px-5 text-foreground hover:bg-background/90'
-						>
-							<ShoppingBag />
-							Savatga
-						</Button>
+						/>
 					</div>
 				</div>
 			</div>

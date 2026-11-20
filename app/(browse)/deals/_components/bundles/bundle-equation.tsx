@@ -26,7 +26,12 @@ const BundleEquation = ({ bundle }: { bundle: Bundle }) => {
 			))}
 
 			<BundleOperator type='equals' className='rotate-90 lg:rotate-0' />
-			<BundleSummary discount={bundle.discount} totals={totals} className='lg:w-72 lg:shrink-0' />
+			<BundleSummary
+				discount={bundle.discount}
+				totals={totals}
+				selectedIds={bundle.products.filter(product => isSelected(product.id)).map(product => product.id)}
+				className='lg:w-72 lg:shrink-0'
+			/>
 		</div>
 	)
 }

@@ -1,17 +1,17 @@
-import { ShoppingBag } from 'lucide-react'
-
-import { Button } from '@/components/ui/button'
+import AddToCartButton from '@/components/shared/add-to-cart-button'
 import type { getBundleTotals } from '@/lib/data/bundles'
 import { cn, formatPrice } from '@/lib/utils'
 
 type Props = {
 	discount: number
 	totals: ReturnType<typeof getBundleTotals>
+	/** Savatga qo'shiladigan (tanlangan) mahsulotlar */
+	selectedIds: string[]
 	className?: string
 }
 
 /** Tenglamaning javobi: to'plam narxi, tejash yoki "qo'shsangiz" eslatmasi */
-const BundleSummary = ({ discount, totals, className }: Props) => {
+const BundleSummary = ({ discount, totals, selectedIds, className }: Props) => {
 	const { count, missing, isComplete, subtotal, total, bundleSavings } = totals
 
 	return (
@@ -68,14 +68,14 @@ const BundleSummary = ({ discount, totals, className }: Props) => {
 				)}
 			</div>
 
-			<Button
+			<AddToCartButton
+				productIds={selectedIds}
 				size='lg'
 				disabled={count === 0}
 				className='h-11 bg-background text-foreground hover:bg-background/90'
 			>
-				<ShoppingBag />
 				{isComplete ? 'To\'plamni savatga' : 'Savatga qo\'shish'}
-			</Button>
+			</AddToCartButton>
 		</div>
 	)
 }

@@ -1,11 +1,11 @@
 'use client'
 
-import { ArrowRight, ShoppingBag } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
-import { Button } from '@/components/ui/button'
+import AddToCartButton from '@/components/shared/add-to-cart-button'
 import { gadgets } from '@/lib/data/gadgets'
 import { cn, formatPrice } from '@/lib/utils'
 
@@ -89,10 +89,7 @@ const CoolestGadgets = () => {
 									{formatPrice(current.price)}
 								</p>
 							</div>
-							<Button size='lg' className='h-10 px-5'>
-								<ShoppingBag />
-								Savatga
-							</Button>
+							<AddToCartButton productIds={current.id} size='lg' className='h-10 px-5' />
 						</div>
 					</div>
 

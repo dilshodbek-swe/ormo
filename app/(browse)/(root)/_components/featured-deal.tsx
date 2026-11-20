@@ -1,9 +1,9 @@
-import { Flame, ShoppingBag } from 'lucide-react'
+import { Flame } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import AddToCartButton from '@/components/shared/add-to-cart-button'
 import DiscountBadge from '@/components/shared/discount-badge'
-import { Button } from '@/components/ui/button'
 import type { Product } from '@/lib/data/products'
 import { cn, formatPrice, getDiscount } from '@/lib/utils'
 
@@ -56,7 +56,7 @@ const FeaturedDeal = ({
 					</p>
 					<h3 className='font-space-grotesk text-2xl font-bold tracking-tight sm:text-3xl'>
 						<Link
-							href={`/products/${id}`}
+							href={`/shop/${id}`}
 							className='after:absolute after:inset-0'
 						>
 							{name}
@@ -75,10 +75,7 @@ const FeaturedDeal = ({
 					</p>
 				</div>
 
-				<Button size='lg' className='relative z-10 h-10 px-5'>
-					<ShoppingBag />
-					Savatga
-				</Button>
+				<AddToCartButton productIds={id} size='lg' className='relative z-10 h-10 px-5' />
 			</div>
 		</article>
 	)

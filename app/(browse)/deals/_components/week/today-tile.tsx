@@ -1,9 +1,9 @@
 'use client'
 
-import { Flame, ShoppingBag } from 'lucide-react'
+import { Flame } from 'lucide-react'
 import Image from 'next/image'
 
-import { Button } from '@/components/ui/button'
+import AddToCartButton from '@/components/shared/add-to-cart-button'
 import useDayCountdown from '@/lib/hooks/use-day-countdown'
 import { cn, formatPrice } from '@/lib/utils'
 import BurningBorder from './burning-border'
@@ -64,13 +64,11 @@ const TodayTile = ({ day, className }: { day: WeekDay; className?: string }) => 
 						</div>
 					</div>
 
-					<Button
+					<AddToCartButton
+						productIds={deal.id}
 						size='lg'
 						className='h-11 bg-linear-to-r from-orange-500 to-rose-500 px-6 text-white hover:opacity-90'
-					>
-						<ShoppingBag />
-						Savatga
-					</Button>
+					/>
 				</div>
 			</article>
 		</BurningBorder>

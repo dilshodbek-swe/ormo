@@ -1,6 +1,4 @@
-import { ShoppingBag } from 'lucide-react'
-
-import { Button } from '@/components/ui/button'
+import AddToCartButton from '@/components/shared/add-to-cart-button'
 import type { Deal } from '@/lib/data/deals'
 import DealPrice from './deal-price'
 
@@ -17,13 +15,13 @@ const DealInfo = ({ deal }: { deal: Deal }) => {
 
 			<DealPrice deal={deal} />
 
-			<Button
+			<AddToCartButton
+				productIds={deal.id}
 				size='lg'
 				className='h-11 bg-background px-6 text-foreground hover:bg-background/90'
 			>
-				<ShoppingBag />
 				Savatga qo&apos;shish
-			</Button>
+			</AddToCartButton>
 		</div>
 	)
 }
