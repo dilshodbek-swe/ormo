@@ -1,10 +1,9 @@
-import { Plus } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
 import type { Product } from '@/lib/data/products'
 import { cn, formatPrice, getDiscount } from '@/lib/utils'
+import AddToCartIconButton from './add-to-cart-icon-button'
 
 interface ProductCardProps {
 	product: Product
@@ -44,14 +43,11 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 					</span>
 				)}
 
-				<Button
-					variant='outline'
-					size='icon-sm'
-					aria-label={`${name} — savatga qo'shish`}
-					className='absolute right-2 bottom-2 z-10 rounded-full bg-background/90 backdrop-blur transition-all md:translate-y-1 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100'
-				>
-					<Plus />
-				</Button>
+				<AddToCartIconButton
+					productId={id}
+					productName={name}
+					className='absolute right-2 bottom-2 z-10 transition-all md:translate-y-1 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100'
+				/>
 			</div>
 
 			<div className='mt-4 flex flex-1 flex-col gap-2'>
@@ -61,7 +57,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 					</p>
 					<h3 className='line-clamp-1 text-sm font-medium'>
 						<Link
-							href={`/products/${id}`}
+							href={`/shop/${id}`}
 							className='underline-offset-4 group-hover:underline after:absolute after:inset-0'
 						>
 							{name}

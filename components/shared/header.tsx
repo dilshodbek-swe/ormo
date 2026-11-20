@@ -1,5 +1,7 @@
-import { Search, ShoppingBag } from 'lucide-react'
+import { Search } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
+import CartButton from './cart-button'
 import Logo from './logo'
 import Nav from './nav'
 
@@ -30,9 +32,7 @@ const Header = () => {
 					>
 						<Search />
 					</Button>
-					<Button variant='ghost' size='icon' aria-label='Savat'>
-						<ShoppingBag />
-					</Button>
+					<CartButton />
 				</div>
 			</div>
 
