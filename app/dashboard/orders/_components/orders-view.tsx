@@ -44,7 +44,7 @@ const OrdersView = () => {
 	return (
 		<>
 			<PageHeader
-				eyebrow={`Akkaunt · Buyurtmalar · ${stats.count} ta`}
+				eyebrow={`Dashboard · Buyurtmalar · ${stats.count} ta`}
 				title={
 					stats.active > 0 ? (
 						<>

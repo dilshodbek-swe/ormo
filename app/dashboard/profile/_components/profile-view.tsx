@@ -15,7 +15,7 @@ const ProfileView = () => {
 	return (
 		<>
 			<PageHeader
-				eyebrow='Akkaunt · Profil'
+				eyebrow='Dashboard · Profil'
 				title={
 					<>
 						{user?.firstName ? `Salom, ${user.firstName}.` : 'Salom.'}{' '}

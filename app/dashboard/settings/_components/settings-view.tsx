@@ -30,7 +30,7 @@ const SettingsView = () => {
 	return (
 		<>
 			<PageHeader
-				eyebrow='Akkaunt · Sozlamalar'
+				eyebrow='Dashboard · Sozlamalar'
 				title={
 					<>
 						Sozlamalar. <span className='text-muted-foreground'>Hammasi sizning qo&apos;lingizda.</span>

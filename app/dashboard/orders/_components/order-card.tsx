@@ -16,8 +16,8 @@ import {
 } from '@/lib/data/orders'
 import { useStore } from '@/lib/store'
 import { cn, formatDate, formatPrice } from '@/lib/utils'
-import OrderTracker from './order-tracker'
-import StatusBadge from './status-badge'
+import OrderTracker from '../../_components/order-tracker'
+import StatusBadge from '../../_components/status-badge'
 
 const Line = ({ label, children }: { label: string; children: React.ReactNode }) => (
 	<div className='flex items-baseline justify-between gap-4 py-2'>

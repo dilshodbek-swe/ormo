@@ -1,7 +1,7 @@
 'use client'
 
 import { useClerk, useUser } from '@clerk/nextjs'
-import { Loader2, LogOut, Package, Settings, UserRound } from 'lucide-react'
+import { LayoutGrid, Loader2, LogOut, Package, Settings, UserRound } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -10,9 +10,10 @@ import { Separator } from '@/components/ui/separator'
 import UserAvatar from './user-avatar'
 
 const menuLinks = [
-	{ href: '/profile', label: 'Profil', icon: UserRound },
-	{ href: '/orders', label: 'Buyurtmalar', icon: Package },
-	{ href: '/settings', label: 'Sozlamalar', icon: Settings },
+	{ href: '/dashboard', label: 'Dashboard', icon: LayoutGrid },
+	{ href: '/dashboard/profile', label: 'Profil', icon: UserRound },
+	{ href: '/dashboard/orders', label: 'Buyurtmalar', icon: Package },
+	{ href: '/dashboard/settings', label: 'Sozlamalar', icon: Settings },
 ]
 
 const itemClass =

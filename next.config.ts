@@ -6,6 +6,13 @@ const nextConfig: NextConfig = {
     agentFeedback: true,
   },
   cacheComponents: true,
+  // Akkaunt sahifalari dashboard ichiga ko'chdi — eski havolalar ishlashda davom etadi
+  redirects: async () =>
+    ["profile", "orders", "settings"].map((page) => ({
+      source: `/${page}`,
+      destination: `/dashboard/${page}`,
+      permanent: false,
+    })),
   partialPrefetching: true,
   turbopack: {
     rules: {
