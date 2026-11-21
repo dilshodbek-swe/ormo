@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 
 import { type CartSlice, createCartSlice } from './cart/cart-slice'
+import { createWishlistSlice, type WishlistSlice } from './wishlist/wishlist-slice'
 
 /**
  * Ilovaning yagona store'i. Yangi bo'lim qo'shish uchun:
@@ -9,7 +10,7 @@ import { type CartSlice, createCartSlice } from './cart/cart-slice'
  *   2) uni shu yerda `StoreState` ga va `create` ichiga qo'shing,
  *   3) saqlanishi kerak bo'lsa — `partialize` ga kiriting.
  */
-export type StoreState = CartSlice
+export type StoreState = CartSlice & WishlistSlice
 
 export const STORE_KEY = 'ormo-store'
 
@@ -18,6 +19,7 @@ export const useStore = create<StoreState>()(
 		persist(
 			(...args) => ({
 				...createCartSlice(...args),
+				...createWishlistSlice(...args),
 			}),
 			{
 				name: STORE_KEY,
@@ -27,6 +29,7 @@ export const useStore = create<StoreState>()(
 				partialize: state => ({
 					cartLines: state.cartLines,
 					promo: state.promo,
+					wishlist: state.wishlist,
 				}),
 				// Server va birinchi client render bir xil (bo'sh) bo'lishi uchun —
 				// tiklash StoreHydrator'da, hydration'dan keyin

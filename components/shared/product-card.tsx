@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { Product } from '@/lib/data/products'
 import { cn, formatPrice, getDiscount } from '@/lib/utils'
 import AddToCartIconButton from './add-to-cart-icon-button'
+import WishlistButton from './wishlist-button'
 
 interface ProductCardProps {
 	product: Product
@@ -42,6 +43,12 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 						-{discount}%
 					</span>
 				)}
+
+				<WishlistButton
+					productId={id}
+					productName={name}
+					className='absolute top-2 right-2 z-10 transition-all aria-pressed:opacity-100 md:-translate-y-1 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:aria-pressed:translate-y-0'
+				/>
 
 				<AddToCartIconButton
 					productId={id}

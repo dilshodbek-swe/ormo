@@ -4,6 +4,7 @@ import { Check, ShoppingBag } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import QuantityStepper from '@/components/shared/quantity-stepper'
+import WishlistButton from '@/components/shared/wishlist-button'
 import { Button } from '@/components/ui/button'
 import type { ProductWithDetails } from '@/lib/data/product-details'
 import { useStore } from '@/lib/store'
@@ -52,6 +53,12 @@ const ProductPurchase = ({ product }: { product: ProductWithDetails }) => {
 						</span>
 					)}
 				</Button>
+				<WishlistButton
+					productId={product.id}
+					productName={product.name}
+					size='icon-lg'
+					className='size-11 rounded-lg'
+				/>
 			</div>
 
 			<p className='h-4 font-mono text-xs text-muted-foreground'>
