@@ -1,0 +1,17 @@
+/** O'zbekiston viloyatlari — manzil formasidagi tanlov uchun */
+export const REGIONS = [
+	'Toshkent shahri',
+	'Toshkent viloyati',
+	'Andijon',
+	'Buxoro',
+	"Farg'ona",
+	'Jizzax',
+	'Xorazm',
+	'Namangan',
+	'Navoiy',
+	'Qashqadaryo',
+	"Qoraqalpog'iston",
+	'Samarqand',
+	'Sirdaryo',
+	'Surxondaryo',
+] as const
