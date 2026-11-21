@@ -2,18 +2,32 @@
 
 import type { SetActiveNavigate } from '@clerk/nextjs/types'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback } from 'react'
+import { useCallback, useSyncExternalStore } from 'react'
+
+const noopSubscribe = () => () => {}
+
+/**
+ * Sayt manzili (origin). Serverda va hydration paytida — `null`, shunda server va
+ * birinchi client render bir xil chiqadi; keyin haqiqiy qiymat bilan qayta render bo'ladi.
+ */
+const useOrigin = () =>
+	useSyncExternalStore(
+		noopSubscribe,
+		() => window.location.origin,
+		() => null
+	)
 
 /**
  * Faqat o'z saytimizdagi manzilga ruxsat beramiz (open redirect'ning oldini olish).
  * Clerk middleware to'liq URL beradi (`http://localhost:3000/orders`) — undan yo'lni ajratamiz.
+ * Origin hali noma'lum bo'lsa, faqat nisbiy yo'l (`/orders`) qabul qilinadi.
  */
-const safePath = (value: string | null) => {
+const safePath = (value: string | null, origin: string | null) => {
 	if (!value) return '/'
-	const origin = typeof window === 'undefined' ? 'http://localhost' : window.location.origin
 	try {
-		const url = new URL(value, origin)
-		return url.origin === origin ? `${url.pathname}${url.search}${url.hash}` : '/'
+		const base = origin ?? 'http://ormo.invalid'
+		const url = new URL(value, base)
+		return url.origin === base ? `${url.pathname}${url.search}${url.hash}` : '/'
 	} catch {
 		return '/'
 	}
@@ -27,7 +41,7 @@ const safePath = (value: string | null) => {
 export const useAuthRedirect = () => {
 	const router = useRouter()
 	const searchParams = useSearchParams()
-	const redirectTo = safePath(searchParams.get('redirect_url'))
+	const redirectTo = safePath(searchParams.get('redirect_url'), useOrigin())
 
 	const navigate = useCallback<SetActiveNavigate>(
 		({ session, decorateUrl }) => {
