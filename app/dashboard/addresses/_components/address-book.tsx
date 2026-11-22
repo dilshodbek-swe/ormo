@@ -4,23 +4,30 @@ import { MapPinPlus, Plus } from 'lucide-react'
 import { useState, useTransition } from 'react'
 
 import FormAlert from '@/components/shared/form-alert'
-import GridFrame from '@/components/shared/grid-frame'
 import { Button } from '@/components/ui/button'
 import PageHeader from '../../_components/page-header'
 import { deleteAddress, setDefaultAddress } from '../_lib/actions'
 import { type Address, type AddressResult, MAX_ADDRESSES } from '../_lib/types'
 import AddressCard from './address-card'
 import AddressDialog from './address-dialog'
+import AddressesMap from './map/addresses-map'
+import MapsProvider from './map/maps-provider'
 
-/** Manzillar daftari: ro'yxat, qo'shish/tahrirlash dialogi va amallar (MongoDB'da saqlanadi) */
+/**
+ * Manzillar daftari: chapda yorliq-kartalar, o'ngda barcha nuqtalar bitta xaritada.
+ * Karta ustiga kelganda yoki bosilganda xarita o'sha nuqtaga uchadi (MongoDB'da saqlanadi).
+ */
 const AddressBook = ({ initial }: { initial: Address[] }) => {
 	const [addresses, setAddresses] = useState(initial)
+	const [selectedId, setSelectedId] = useState(() => initial.find(address => address.isDefault)?.id)
+	const [hoveredId, setHoveredId] = useState<string>()
 	const [dialog, setDialog] = useState<{ open: boolean; address?: Address }>({ open: false })
 	const [busyId, setBusyId] = useState<string>()
 	const [error, setError] = useState<string>()
 	const [, startTransition] = useTransition()
 
 	const full = addresses.length >= MAX_ADDRESSES
+	const activeId = hoveredId ?? selectedId
 
 	const apply = (result: AddressResult) => {
 		if (result.ok) {
@@ -39,10 +46,16 @@ const AddressBook = ({ initial }: { initial: Address[] }) => {
 		})
 	}
 
+	/** Xaritadagi belgi bosilganda — kartani ko'rinadigan joyga suramiz */
+	const selectFromMap = (id: string) => {
+		setSelectedId(id)
+		document.getElementById(`address-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+	}
+
 	const openNew = () => setDialog({ open: true })
 
 	return (
-		<>
+		<MapsProvider>
 			<PageHeader
 				eyebrow={`Dashboard · Manzillar · ${addresses.length}/${MAX_ADDRESSES}`}
 				title={
@@ -50,7 +63,7 @@ const AddressBook = ({ initial }: { initial: Address[] }) => {
 						Manzillar. <span className='text-muted-foreground'>Kuryer adashmaydi.</span>
 					</>
 				}
-				description='Buyurtma berishda tanlash uchun yetkazish manzillaringizni saqlang. Asosiy manzil avtomatik tanlanadi.'
+				description='Yetkazish manzillaringizni xaritada belgilang — kuryer aynan shu nuqtaga keladi. Asosiy manzil buyurtmada avtomatik tanlanadi.'
 				action={
 					addresses.length > 0 && (
 						<Button onClick={openNew} disabled={full}>
@@ -61,55 +74,77 @@ const AddressBook = ({ initial }: { initial: Address[] }) => {
 				}
 			/>
 
-			<div className='space-y-4'>
-				<FormAlert message={error} />
+			{error && (
+				<div className='mb-4'>
+					<FormAlert message={error} />
+				</div>
+			)}
 
-				{addresses.length > 0 ? (
-					<div className='grid gap-4 md:grid-cols-2'>
+			{addresses.length > 0 ? (
+				<div className='grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]'>
+					{/* Xarita — mobil ekranda tepada, kattada o'ngda yopishqoq */}
+					<AddressesMap
+						addresses={addresses}
+						activeId={activeId}
+						onSelect={selectFromMap}
+						className='h-80 lg:sticky lg:top-20 lg:order-last lg:h-[calc(100svh-7rem)] lg:min-h-[32rem]'
+					/>
+
+					<div className='space-y-3'>
 						{addresses.map((address, index) => (
-							<AddressCard
-								key={address.id}
-								address={address}
-								index={index}
-								busy={busyId === address.id}
-								onEdit={() => setDialog({ open: true, address })}
-								onDelete={() => run(address.id, deleteAddress)}
-								onMakeDefault={() => run(address.id, setDefaultAddress)}
-							/>
+							<div key={address.id} id={`address-${address.id}`} className='scroll-mt-20'>
+								<AddressCard
+									address={address}
+									index={index}
+									active={address.id === activeId}
+									busy={busyId === address.id}
+									onSelect={() => setSelectedId(address.id)}
+									onHover={hovering => setHoveredId(hovering ? address.id : undefined)}
+									onEdit={() => setDialog({ open: true, address })}
+									onDelete={() => run(address.id, deleteAddress)}
+									onMakeDefault={() => run(address.id, setDefaultAddress)}
+								/>
+							</div>
 						))}
 
 						{!full && (
 							<button
 								type='button'
 								onClick={openNew}
-								className='group flex min-h-48 flex-col items-center justify-center gap-3 border border-dashed text-muted-foreground transition-colors hover:border-foreground/40 hover:bg-muted/30 hover:text-foreground'
+								className='group flex w-full items-center justify-center gap-3 border border-dashed py-6 text-sm text-muted-foreground transition-colors hover:border-foreground/40 hover:bg-muted/30 hover:text-foreground'
 							>
-								<span className='flex size-10 items-center justify-center rounded-full border bg-background transition-transform group-hover:scale-110'>
+								<span className='flex size-8 items-center justify-center rounded-full border bg-background transition-transform group-hover:scale-110'>
 									<Plus className='size-4' />
 								</span>
-								<span className='text-sm'>Yana bitta manzil qo&apos;shish</span>
+								Yana bitta manzil qo&apos;shish
 							</button>
 						)}
 					</div>
-				) : (
-					<GridFrame className='flex flex-col items-center gap-5 bg-[radial-gradient(var(--color-border)_1px,transparent_1px)] bg-size-[18px_18px] px-6 py-16 text-center'>
-						<span className='relative flex size-14 items-center justify-center rounded-full border bg-background'>
-							<span className='absolute inset-0 animate-ping rounded-full border opacity-40' />
-							<MapPinPlus className='size-6' />
-						</span>
-						<div className='space-y-1.5'>
-							<p className='font-space-grotesk text-2xl font-bold tracking-tight'>Hali manzil yo&apos;q</p>
-							<p className='max-w-sm text-sm text-muted-foreground'>
-								Birinchi manzilingizni qo&apos;shing — keyingi buyurtmalar bir bosishda rasmiylashadi.
-							</p>
+				</div>
+			) : (
+				// Bo'sh holat: xarita fonida taklif kartasi
+				<div className='relative'>
+					<AddressesMap addresses={[]} onSelect={() => {}} className='h-[28rem]' />
+					<div className='absolute inset-0 z-20 flex items-center justify-center p-4'>
+						<div className='animate-in fade-in zoom-in-95 flex max-w-sm flex-col items-center gap-4 rounded-2xl border bg-background/95 p-8 text-center shadow-xl backdrop-blur-md'>
+							<span className='relative flex size-14 items-center justify-center rounded-full border bg-background'>
+								<span className='absolute inset-0 animate-ping rounded-full border opacity-40' />
+								<MapPinPlus className='size-6' />
+							</span>
+							<div className='space-y-1.5'>
+								<p className='font-space-grotesk text-2xl font-bold tracking-tight'>Birinchi nuqtani qo&apos;ying</p>
+								<p className='text-sm text-muted-foreground'>
+									Xaritada uyingiz yoki ishxonangizni belgilang — keyingi buyurtmalar bir bosishda rasmiylashadi.
+								</p>
+							</div>
+							<Button onClick={openNew}>
+								<Plus />
+								Manzil qo&apos;shish
+							</Button>
 						</div>
-						<Button onClick={openNew}>
-							<Plus />
-							Manzil qo&apos;shish
-						</Button>
-					</GridFrame>
-				)}
-			</div>
+					</div>
+				</div>
+			)}
 
 			<AddressDialog
 				open={dialog.open}
@@ -117,11 +152,14 @@ const AddressBook = ({ initial }: { initial: Address[] }) => {
 				address={dialog.address}
 				isFirst={addresses.length === 0}
 				onSaved={result => {
+					// Yangi yoki tahrirlangan manzilni xaritada darhol ko'rsatamiz
+					const known = new Set(addresses.map(address => address.id))
+					setSelectedId(dialog.address?.id ?? result.addresses.find(address => !known.has(address.id))?.id)
 					apply(result)
 					setDialog(current => ({ ...current, open: false }))
 				}}
 			/>
-		</>
+		</MapsProvider>
 	)
 }
 
