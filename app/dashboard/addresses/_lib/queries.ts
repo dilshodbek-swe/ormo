@@ -12,6 +12,7 @@ type StoredAddress = {
 	city: string
 	street: string
 	isDefault?: boolean | null
+	location?: { lat?: number | null; lng?: number | null } | null
 }
 
 /** Mongo subhujjatlarini client'ga xavfsiz uzatiladigan oddiy obyektlarga aylantiradi */
@@ -28,6 +29,10 @@ export const serializeAddresses = (addresses: StoredAddress[]): Address[] =>
 			city: address.city,
 			street: address.street,
 			isDefault: Boolean(address.isDefault),
+			location:
+				typeof address.location?.lat === 'number' && typeof address.location?.lng === 'number'
+					? { lat: address.location.lat, lng: address.location.lng }
+					: null,
 		}))
 		// Asosiy manzil doim birinchi
 		.sort((a, b) => Number(b.isDefault) - Number(a.isDefault))

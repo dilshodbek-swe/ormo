@@ -31,6 +31,14 @@ const normalizePhone = (value: unknown) => {
 	return digits.length === 12 && digits.startsWith('998') ? digits : null
 }
 
+/** Faqat haqiqiy koordinatalar; noto'g'ri bo'lsa — nuqtasiz saqlanadi */
+const parseLocation = (value: unknown) => {
+	const { lat, lng } = (value ?? {}) as Record<string, unknown>
+	if (typeof lat !== 'number' || typeof lng !== 'number') return null
+	if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) return null
+	return { lat: Math.round(lat * 1e6) / 1e6, lng: Math.round(lng * 1e6) / 1e6 }
+}
+
 const validate = (raw: unknown) => {
 	const input = (raw ?? {}) as Record<string, unknown>
 	const fieldErrors: Partial<Record<AddressField, string>> = {}
@@ -45,6 +53,7 @@ const validate = (raw: unknown) => {
 		city: text(input.city, 60),
 		street: text(input.street, 160),
 		isDefault: input.isDefault === true,
+		location: parseLocation(input.location),
 	} satisfies AddressInput
 
 	if (data.fullName.length < 2) fieldErrors.fullName = 'Qabul qiluvchining ismini kiriting'
@@ -108,7 +117,7 @@ export const updateAddress = async (id: string, raw: unknown): Promise<AddressRe
 
 	return withUser(async clerkId => {
 		if (data.isDefault) await clearDefault(clerkId)
-		const { label, fullName, phone, region, city, street } = data
+		const { label, fullName, phone, region, city, street, location } = data
 
 		const { matchedCount } = await UserModel.updateOne(
 			{ clerkId, 'addresses._id': id },
@@ -120,6 +129,7 @@ export const updateAddress = async (id: string, raw: unknown): Promise<AddressRe
 					'addresses.$.region': region,
 					'addresses.$.city': city,
 					'addresses.$.street': street,
+					'addresses.$.location': location,
 					// Asosiylikni olib tashlash faqat boshqasini tanlash orqali
 					...(data.isDefault && { 'addresses.$.isDefault': true }),
 				},

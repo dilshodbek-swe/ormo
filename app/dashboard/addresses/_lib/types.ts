@@ -3,6 +3,11 @@ export type AddressLabel = (typeof ADDRESS_LABELS)[number]
 
 export const MAX_ADDRESSES = 10
 
+export interface LatLng {
+	lat: number
+	lng: number
+}
+
 export interface AddressInput {
 	label: AddressLabel
 	fullName: string
@@ -11,6 +16,8 @@ export interface AddressInput {
 	city: string
 	street: string
 	isDefault: boolean
+	/** Xaritada belgilangan nuqta */
+	location?: LatLng | null
 }
 
 export interface Address extends AddressInput {

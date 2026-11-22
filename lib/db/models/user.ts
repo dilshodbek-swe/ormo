@@ -14,6 +14,11 @@ const addressSchema = new Schema(
 		city: { type: String, required: true, trim: true },
 		street: { type: String, required: true, trim: true },
 		isDefault: { type: Boolean, default: false },
+		/** Xaritadagi nuqta (Google Maps) — ixtiyoriy */
+		location: {
+			type: new Schema({ lat: { type: Number, min: -90, max: 90 }, lng: { type: Number, min: -180, max: 180 } }, { _id: false }),
+			required: false,
+		},
 	},
 	{ _id: true }
 )
