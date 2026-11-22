@@ -1,6 +1,6 @@
 'use client'
 
-import { Loader2 } from 'lucide-react'
+import { Loader2, Sparkles } from 'lucide-react'
 import { type FormEvent, useId, useState, useTransition } from 'react'
 
 import FormAlert from '@/components/shared/form-alert'
@@ -22,6 +22,9 @@ import {
 	type AddressResult,
 } from '../_lib/types'
 import { LABEL_ICONS } from './label-icons'
+import type { ResolvedAddress } from './map/geo'
+import LocationPicker from './map/location-picker'
+import { mapsEnabled } from './map/maps-provider'
 
 const EMPTY: AddressInput = {
 	label: 'Uy',
@@ -31,6 +34,7 @@ const EMPTY: AddressInput = {
 	city: '',
 	street: '',
 	isDefault: false,
+	location: null,
 }
 
 /** 998901234567 → "90 123 45 67" (kiritish maydoni uchun, +998 alohida turadi) */
@@ -51,7 +55,7 @@ interface AddressDialogProps {
 
 const AddressDialog = ({ open, onOpenChange, address, isFirst, onSaved }: AddressDialogProps) => (
 	<Dialog open={open} onOpenChange={onOpenChange}>
-		<DialogContent className='gap-0 p-0 sm:max-w-lg'>
+		<DialogContent className={cn('gap-0 overflow-hidden p-0', mapsEnabled ? 'sm:max-w-4xl' : 'sm:max-w-lg')}>
 			{/* key — har ochilishda forma toza holatdan boshlanadi */}
 			{open && (
 				<AddressForm
@@ -79,6 +83,8 @@ const AddressForm = ({
 	const [errors, setErrors] = useState<Partial<Record<AddressField, string>>>({})
 	const [error, setError] = useState<string>()
 	const [pending, startTransition] = useTransition()
+	/** Xaritadan avtomatik to'ldirilgan bo'lsa — kichik belgi ko'rsatamiz */
+	const [autoFilled, setAutoFilled] = useState(false)
 
 	const set = <K extends keyof AddressInput>(key: K, value: AddressInput[K]) => {
 		setValues(current => ({ ...current, [key]: value }))
@@ -96,6 +102,18 @@ const AddressForm = ({
 		})
 	}
 
+	/** Xaritada topilgan manzil bilan viloyat, shahar va ko'chani to'ldiradi */
+	const applyResolved = ({ region, city, street }: ResolvedAddress) => {
+		setValues(current => ({
+			...current,
+			region: region ?? current.region,
+			city: city ?? current.city,
+			street: street ?? current.street,
+		}))
+		setErrors(current => ({ ...current, region: undefined, city: undefined, street: undefined }))
+		if (region || city || street) setAutoFilled(true)
+	}
+
 	const field = (name: AddressField) => ({
 		id: `${uid}-${name}`,
 		'aria-invalid': Boolean(errors[name]) || undefined,
@@ -111,6 +129,17 @@ const AddressForm = ({
 				<DialogDescription>Kuryer buyurtmani shu manzilga olib keladi.</DialogDescription>
 			</DialogHeader>
 
+			<div className={cn(mapsEnabled && 'grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]')}>
+				{mapsEnabled && (
+					<div className='h-64 border-b md:h-auto md:border-r md:border-b-0'>
+						<LocationPicker
+							value={values.location ?? null}
+							label={values.label}
+							onChange={location => set('location', location)}
+							onResolved={applyResolved}
+						/>
+					</div>
+				)}
 			<div className='max-h-[65svh] space-y-5 overflow-y-auto p-5'>
 				{/* Yorliq — segmentli tanlov */}
 				<fieldset className='space-y-2'>
@@ -197,7 +226,19 @@ const AddressForm = ({
 					id={`${uid}-street`}
 					label='Ko‘cha, uy, xonadon'
 					error={errors.street}
-					hint='Mo‘ljal yoki domofon kodini ham yozib qo‘yishingiz mumkin'
+					action={
+						autoFilled && (
+							<span className='animate-in fade-in inline-flex items-center gap-1 text-[11px] text-muted-foreground'>
+								<Sparkles className='size-3' />
+								Xaritadan to‘ldirildi
+							</span>
+						)
+					}
+					hint={
+						mapsEnabled
+							? 'Xaritada nuqtani belgilang — maydonlar o‘zi to‘ladi. Xonadon va mo‘ljalni qo‘shing.'
+							: 'Mo‘ljal yoki domofon kodini ham yozib qo‘yishingiz mumkin'
+					}
 				>
 					<Textarea
 						{...field('street')}
@@ -225,6 +266,7 @@ const AddressForm = ({
 				)}
 
 				<FormAlert message={error} />
+			</div>
 			</div>
 
 			<DialogFooter className='m-0 rounded-b-xl border-t bg-muted/40 p-4'>
