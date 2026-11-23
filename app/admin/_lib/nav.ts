@@ -105,7 +105,7 @@ export const adminNav: AdminNavGroup[] = [
 				shortcut: 'P',
 				badge: 'products',
 				description: "Mahsulotlar ro'yxati, narxlar, rasmlar va ombordagi qoldiq.",
-				planned: ["Mahsulot qo'shish va tahrirlash", 'Narx va eski narx (chegirma)', 'Rasmlar galereyasi va xususiyatlar'],
+				planned: [],
 			},
 			{
 				href: '/admin/categories',
