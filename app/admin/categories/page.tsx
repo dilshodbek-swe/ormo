@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import SectionPlaceholder from '../_components/section-placeholder'
+import CategoriesView from './_components/categories-view'
 
-export const metadata: Metadata = { title: "Kategoriyalar" }
+export const metadata: Metadata = { title: 'Kategoriyalar' }
 
-const AdminCategoriesPage = () => <SectionPlaceholder href='/admin/categories' />
+const AdminCategoriesPage = () => <CategoriesView />
 
 export default AdminCategoriesPage

@@ -18,7 +18,7 @@ import {
 
 import { bundles } from '@/lib/data/bundles'
 import { catalogProducts } from '@/lib/data/catalog'
-import { categories } from '@/lib/data/categories'
+import { sampleCategories } from '../categories/_lib/sample-categories'
 import { adminOrders } from '../orders/_lib/sample-orders'
 import { PROMO_CODES } from '@/lib/store/cart/cart-pricing'
 
@@ -114,7 +114,7 @@ export const adminNav: AdminNavGroup[] = [
 				shortcut: 'C',
 				badge: 'categories',
 				description: "Katalog tuzilmasi — kategoriyalar, ularning rasmi va tavsifi.",
-				planned: ["Kategoriya qo'shish/tahrirlash", 'Tartibni sudrab almashtirish', "Har bir kategoriyadagi mahsulotlar soni"],
+				planned: [],
 			},
 			{
 				href: '/admin/deals',
@@ -209,7 +209,7 @@ export const getAdminGroup = (href: string) => adminNav.find(group => group.link
 export const getAdminBadges = (): Record<AdminBadge, number> => ({
 	activeOrders: adminOrders.filter(order => order.status === 'processing').length,
 	products: catalogProducts.length,
-	categories: categories.length,
+	categories: sampleCategories.length,
 	coupons: Object.keys(PROMO_CODES).length,
 	bundles: bundles.length,
 })
