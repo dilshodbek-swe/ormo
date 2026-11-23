@@ -1,4 +1,5 @@
 import type { ProductCategory } from '@/lib/data/products'
+import { slugify } from '@/lib/utils'
 
 /*
  * Admin mahsulot modeli — backend (Mongoose `Product`) shu shaklga moslab yoziladi.
@@ -180,13 +181,6 @@ export const validateDraft = (draft: ProductDraft): DraftErrors => {
 
 	return errors
 }
-
-export const slugify = (value: string) =>
-	value
-		.toLowerCase()
-		.replace(/[‘’ʻʼ']/g, '')
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/^-+|-+$/g, '')
 
 /** SKU taklifi: brend + nomdan, masalan "SONY-A6400" */
 export const suggestSku = (brand: string, name: string) =>

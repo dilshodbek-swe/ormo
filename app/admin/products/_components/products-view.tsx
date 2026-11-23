@@ -5,6 +5,7 @@ import { type ReactNode, useEffect, useRef, useState, useSyncExternalStore } fro
 
 import PageHeader from '@/components/shared/page-header'
 import { Button } from '@/components/ui/button'
+import { slugify } from '@/lib/utils'
 import { sampleProducts } from '../_lib/sample-products'
 import {
 	type AdminProduct,
@@ -14,7 +15,6 @@ import {
 	type ProductDraft,
 	PRODUCT_STATUS,
 	type ProductStatus,
-	slugify,
 } from '../_lib/types'
 import DeleteDialog from './delete-dialog'
 import ProductEditor, { type EditorState } from './editor/product-editor'

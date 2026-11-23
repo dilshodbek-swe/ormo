@@ -36,3 +36,11 @@ export const formatRelative = (value: Date | string) => {
 	if (days < 30) return `${days} kun oldin`
 	return formatDate(value)
 }
+
+/** "Sony Alpha a6400" → "sony-alpha-a6400" (URL va ID uchun; o'zbekcha tutuq belgilari olib tashlanadi) */
+export const slugify = (value: string) =>
+	value
+		.toLowerCase()
+		.replace(/[‘’ʻʼ']/g, '')
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-+|-+$/g, '')
