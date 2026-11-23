@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
     agentFeedback: true,
+    // forbidden() / unauthorized() — admin panelga rol bo'yicha kirish uchun
+    authInterrupts: true,
   },
   cacheComponents: true,
   // Akkaunt sahifalari dashboard ichiga ko'chdi — eski havolalar ishlashda davom etadi

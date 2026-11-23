@@ -1,7 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 /** Faqat tizimga kirgan foydalanuvchi ko'ra oladigan sahifalar */
-const isAccountRoute = createRouteMatcher(["/dashboard(.*)"]);
+const isAccountRoute = createRouteMatcher(["/dashboard(.*)", "/admin(.*)"]);
 
 export default clerkMiddleware(
   async (auth, request) => {
