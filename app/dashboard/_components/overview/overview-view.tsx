@@ -14,7 +14,7 @@ import { selectWishlistCount } from '@/lib/store/wishlist/wishlist-selectors'
 import { formatDate, formatPrice } from '@/lib/utils'
 import { dashboardLinks } from '../../_lib/nav'
 import PageHeader from '@/components/shared/page-header'
-import StatusBadge from '../status-badge'
+import StatusBadge from '@/components/shared/status-badge'
 import AccountChecklist from './account-checklist'
 import ActiveOrder from './active-order'
 

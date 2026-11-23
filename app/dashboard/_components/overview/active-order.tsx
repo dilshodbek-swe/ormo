@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { getOrderTotal, type Order } from '@/lib/data/orders'
 import { formatDate, formatPrice } from '@/lib/utils'
-import OrderTracker from '../order-tracker'
-import StatusBadge from '../status-badge'
+import OrderTracker from '@/components/shared/order-tracker'
+import StatusBadge from '@/components/shared/status-badge'
 
 /** Eng so'nggi faol buyurtma — kuzatuv chizig'i bilan */
 const ActiveOrder = ({ order }: { order?: Order }) => {
