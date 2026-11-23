@@ -19,7 +19,7 @@ import {
 import { bundles } from '@/lib/data/bundles'
 import { catalogProducts } from '@/lib/data/catalog'
 import { categories } from '@/lib/data/categories'
-import { getOrderStats } from '@/lib/data/orders'
+import { adminOrders } from '../orders/_lib/sample-orders'
 import { PROMO_CODES } from '@/lib/store/cart/cart-pricing'
 
 export type AdminBadge = 'activeOrders' | 'products' | 'categories' | 'coupons' | 'bundles'
@@ -74,7 +74,7 @@ export const adminNav: AdminNavGroup[] = [
 				shortcut: 'O',
 				badge: 'activeOrders',
 				description: "Barcha buyurtmalar, ularning holati va yetkazib berish bosqichlari.",
-				planned: ["Holat bo'yicha filtr va qidiruv", "Bosqichni o'zgartirish (qadoqlandi → yo'lda)", 'Buyurtma tafsilotlari va chek'],
+				planned: [],
 			},
 			{
 				href: '/admin/payments',
@@ -207,7 +207,7 @@ export const getAdminGroup = (href: string) => adminNav.find(group => group.link
 
 /** Sidebar'dagi raqamlar. Hozircha namunaviy ma'lumotlardan — API ulanganda serverdan keladi. */
 export const getAdminBadges = (): Record<AdminBadge, number> => ({
-	activeOrders: getOrderStats().active,
+	activeOrders: adminOrders.filter(order => order.status === 'processing').length,
 	products: catalogProducts.length,
 	categories: categories.length,
 	coupons: Object.keys(PROMO_CODES).length,
