@@ -9,15 +9,15 @@ import SearchCommand from '@/components/shared/search/search-command'
 import UserMenu from '@/components/shared/user-menu'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
-import { findDashboardLink } from '../_lib/nav'
-import { useNavShortcuts } from '../_lib/use-nav-shortcuts'
+import { useNavShortcuts } from '@/lib/hooks/use-nav-shortcuts'
+import { dashboardLinks, findDashboardLink } from '../_lib/nav'
 
 /** Yuqori panel: menyuni yig'ish, "non bo'laklari", qidiruv, savat va avatar */
 const DashboardNavbar = () => {
 	const pathname = usePathname()
 	const current = findDashboardLink(pathname)
 	const isRoot = current?.href === '/dashboard'
-	useNavShortcuts()
+	useNavShortcuts(dashboardLinks)
 
 	return (
 		<header className='sticky top-0 z-20 flex h-14 shrink-0 items-center gap-2 border-b bg-background/80 px-3 backdrop-blur-md sm:px-4'>

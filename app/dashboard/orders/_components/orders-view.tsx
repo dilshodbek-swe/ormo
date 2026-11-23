@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { getOrderStats, type OrderStatus, orders } from '@/lib/data/orders'
 import { cn, formatPrice } from '@/lib/utils'
-import PageHeader from '../../_components/page-header'
+import PageHeader from '@/components/shared/page-header'
 import OrderCard from './order-card'
 
 type Filter = 'all' | 'active' | Extract<OrderStatus, 'delivered' | 'cancelled'>

@@ -5,7 +5,7 @@ import { useState, useTransition } from 'react'
 
 import FormAlert from '@/components/shared/form-alert'
 import { Button } from '@/components/ui/button'
-import PageHeader from '../../_components/page-header'
+import PageHeader from '@/components/shared/page-header'
 import { deleteAddress, setDefaultAddress } from '../_lib/actions'
 import { type Address, type AddressResult, MAX_ADDRESSES } from '../_lib/types'
 import AddressCard from './address-card'

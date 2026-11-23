@@ -3,8 +3,6 @@
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-import { dashboardLinks } from './nav'
-
 /** Ketma-ket ikkinchi tugma uchun kutish vaqti */
 const SEQUENCE_TIMEOUT = 900
 
@@ -12,11 +10,17 @@ const isTyping = (target: EventTarget | null) =>
 	target instanceof HTMLElement &&
 	(target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName))
 
+export interface ShortcutLink {
+	href: string
+	/** `G` dan keyin bosiladigan harf */
+	shortcut: string
+}
+
 /**
  * Vercel/GitHub uslubidagi yorliqlar: `G` → `O` buyurtmalarga, `G` → `S` sozlamalarga va h.k.
- * Matn kiritilayotganda ishlamaydi.
+ * Matn kiritilayotganda ishlamaydi. `links` modul darajasidagi barqaror massiv bo'lishi kerak.
  */
-export const useNavShortcuts = () => {
+export const useNavShortcuts = (links: readonly ShortcutLink[]) => {
 	const router = useRouter()
 
 	useEffect(() => {
@@ -28,7 +32,7 @@ export const useNavShortcuts = () => {
 
 			if (armedAt && Date.now() - armedAt < SEQUENCE_TIMEOUT) {
 				armedAt = 0
-				const link = dashboardLinks.find(item => item.shortcut === key)
+				const link = links.find(item => item.shortcut === key)
 				if (link) {
 					event.preventDefault()
 					router.push(link.href)
@@ -41,5 +45,5 @@ export const useNavShortcuts = () => {
 
 		window.addEventListener('keydown', onKeyDown)
 		return () => window.removeEventListener('keydown', onKeyDown)
-	}, [router])
+	}, [router, links])
 }

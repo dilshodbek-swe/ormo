@@ -16,7 +16,7 @@ import {
 	transactions,
 } from '@/lib/data/payments'
 import { cn, formatDate, formatPrice } from '@/lib/utils'
-import PageHeader from '../../_components/page-header'
+import PageHeader from '@/components/shared/page-header'
 import PaymentCard from './payment-card'
 
 const filters: { value: TransactionStatus | 'all'; label: string }[] = [

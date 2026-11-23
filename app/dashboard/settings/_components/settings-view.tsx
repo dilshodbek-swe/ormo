@@ -4,7 +4,7 @@ import { useUser } from '@clerk/nextjs'
 import type { ReactNode } from 'react'
 
 import AccountSkeleton from '../../_components/account-skeleton'
-import PageHeader from '../../_components/page-header'
+import PageHeader from '@/components/shared/page-header'
 import ConnectedAccountsCard from './connected-accounts-card'
 import DangerZoneCard from './danger-zone-card'
 import NotificationsCard from './notifications-card'

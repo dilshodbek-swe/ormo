@@ -3,7 +3,7 @@
 import { useUser } from '@clerk/nextjs'
 
 import AccountSkeleton from '../../_components/account-skeleton'
-import PageHeader from '../../_components/page-header'
+import PageHeader from '@/components/shared/page-header'
 import EmailCard from './email-card'
 import PersonalInfoCard from './personal-info-card'
 import ProfileHero from './profile-hero'

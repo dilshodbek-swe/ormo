@@ -15,7 +15,7 @@ import { useStore } from '@/lib/store'
 import useStoreHydrated from '@/lib/store/use-store-hydrated'
 import { useWishlistItems, type WishlistItem } from '@/lib/store/wishlist/wishlist-selectors'
 import { cn, formatPrice, getDiscount } from '@/lib/utils'
-import PageHeader from '../../_components/page-header'
+import PageHeader from '@/components/shared/page-header'
 
 const sorts = [
 	{ value: 'recent', label: 'Yangi qo‘shilgan' },
