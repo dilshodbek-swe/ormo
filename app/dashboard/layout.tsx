@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import AdminShortcut from '@/components/shared/admin-shortcut'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import StoreHydrator from '@/lib/store/store-hydrator'
@@ -19,7 +20,7 @@ const DashboardLayout = ({ children }: LayoutProps<'/dashboard'>) => {
 			<SidebarProvider>
 				<DashboardSidebar />
 				<SidebarInset className='min-w-0'>
-					<DashboardNavbar />
+					<DashboardNavbar adminSlot={<AdminShortcut />} />
 					<div className='relative flex-1'>
 						{/* Nozik nuqtali fon — faqat tepada, pastga qarab so'nadi */}
 						<div

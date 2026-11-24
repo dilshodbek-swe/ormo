@@ -3,6 +3,7 @@
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import type { ReactNode } from 'react'
 
 import CartButton from '@/components/shared/cart-button'
 import SearchCommand from '@/components/shared/search/search-command'
@@ -13,7 +14,8 @@ import { useNavShortcuts } from '@/lib/hooks/use-nav-shortcuts'
 import { dashboardLinks, findDashboardLink } from '../_lib/nav'
 
 /** Yuqori panel: menyuni yig'ish, "non bo'laklari", qidiruv, savat va avatar */
-const DashboardNavbar = () => {
+/** adminSlot — layout'dan keladigan server qismi (faqat adminlarga "Admin" tugmasi) */
+const DashboardNavbar = ({ adminSlot }: { adminSlot?: ReactNode }) => {
 	const pathname = usePathname()
 	const current = findDashboardLink(pathname)
 	const isRoot = current?.href === '/dashboard'
@@ -44,6 +46,7 @@ const DashboardNavbar = () => {
 
 			<div className='ml-auto flex items-center gap-1.5'>
 				<SearchCommand />
+				{adminSlot}
 				<CartButton />
 				<div className='ml-1'>
 					<UserMenu />
