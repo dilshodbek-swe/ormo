@@ -82,7 +82,7 @@ export const adminNav: AdminNavGroup[] = [
 				icon: CreditCard,
 				shortcut: 'T',
 				description: "Click, Payme va karta orqali tushgan to'lovlar hamda qaytarishlar.",
-				planned: ["Tranzaksiyalar jurnali", "Qaytarish (refund) so'rovlari", "To'lov usullari bo'yicha hisobot"],
+				planned: [],
 			},
 			{
 				href: '/admin/coupons',

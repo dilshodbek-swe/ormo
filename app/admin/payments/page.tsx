@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import SectionPlaceholder from '../_components/section-placeholder'
+import PaymentsView from './_components/payments-view'
 
 export const metadata: Metadata = { title: "To'lovlar" }
 
-const AdminPaymentsPage = () => <SectionPlaceholder href='/admin/payments' />
+const AdminPaymentsPage = () => <PaymentsView />
 
 export default AdminPaymentsPage
