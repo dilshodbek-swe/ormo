@@ -19,8 +19,9 @@ import {
 import { bundles } from '@/lib/data/bundles'
 import { catalogProducts } from '@/lib/data/catalog'
 import { sampleCategories } from '../categories/_lib/sample-categories'
+import { sampleCoupons } from '../coupons/_lib/sample-coupons'
+import { getStatus } from '../coupons/_lib/types'
 import { adminOrders } from '../orders/_lib/sample-orders'
-import { PROMO_CODES } from '@/lib/store/cart/cart-pricing'
 
 export type AdminBadge = 'activeOrders' | 'products' | 'categories' | 'coupons' | 'bundles'
 
@@ -91,7 +92,7 @@ export const adminNav: AdminNavGroup[] = [
 				shortcut: 'K',
 				badge: 'coupons',
 				description: "Savatdagi promo-kodlar: chegirma foizi, muddati va ishlatilish soni.",
-				planned: ['Kupon yaratish va tahrirlash', 'Amal qilish muddati va limit', "Ishlatilish statistikasi"],
+				planned: [],
 			},
 		],
 	},
@@ -210,6 +211,6 @@ export const getAdminBadges = (): Record<AdminBadge, number> => ({
 	activeOrders: adminOrders.filter(order => order.status === 'processing').length,
 	products: catalogProducts.length,
 	categories: sampleCategories.length,
-	coupons: Object.keys(PROMO_CODES).length,
+	coupons: sampleCoupons.filter(coupon => getStatus(coupon) === 'active').length,
 	bundles: bundles.length,
 })
