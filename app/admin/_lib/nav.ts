@@ -123,7 +123,7 @@ export const adminNav: AdminNavGroup[] = [
 				icon: Flame,
 				shortcut: 'E',
 				description: "Hafta aksiyalari va bosh sahifadagi \"kun taklifi\".",
-				planned: ['Hafta kunlari bo‘yicha aksiya jadvali', 'Kun taklifi va taymer', 'Chegirma foizini boshqarish'],
+				planned: [],
 			},
 			{
 				href: '/admin/bundles',

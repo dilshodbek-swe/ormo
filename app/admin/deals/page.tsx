@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import SectionPlaceholder from '../_components/section-placeholder'
+import DealsView from './_components/deals-view'
 
-export const metadata: Metadata = { title: "Aksiyalar" }
+export const metadata: Metadata = { title: 'Aksiyalar' }
 
-const AdminDealsPage = () => <SectionPlaceholder href='/admin/deals' />
+const AdminDealsPage = () => <DealsView />
 
 export default AdminDealsPage
