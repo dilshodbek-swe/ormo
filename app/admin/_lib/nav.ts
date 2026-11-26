@@ -22,8 +22,9 @@ import { sampleCategories } from '../categories/_lib/sample-categories'
 import { sampleCoupons } from '../coupons/_lib/sample-coupons'
 import { getStatus } from '../coupons/_lib/types'
 import { adminOrders } from '../orders/_lib/sample-orders'
+import { sampleReviews } from '../reviews/_lib/reviews'
 
-export type AdminBadge = 'activeOrders' | 'products' | 'categories' | 'coupons' | 'bundles'
+export type AdminBadge = 'activeOrders' | 'products' | 'categories' | 'coupons' | 'bundles' | 'reviews'
 
 export interface AdminLink {
 	href: string
@@ -139,8 +140,9 @@ export const adminNav: AdminNavGroup[] = [
 				label: 'Sharhlar',
 				icon: Star,
 				shortcut: 'R',
+				badge: 'reviews',
 				description: 'Mijozlar qoldirgan baholar va sharhlarni moderatsiya qilish.',
-				planned: ['Yangi sharhlar navbati', 'Tasdiqlash / yashirish', 'Sharhga javob yozish'],
+				planned: [],
 			},
 		],
 	},
@@ -213,4 +215,5 @@ export const getAdminBadges = (): Record<AdminBadge, number> => ({
 	categories: sampleCategories.length,
 	coupons: sampleCoupons.filter(coupon => getStatus(coupon) === 'active').length,
 	bundles: sampleBundles.filter(bundle => bundle.visible).length,
+	reviews: sampleReviews.filter(review => review.status === 'pending').length,
 })

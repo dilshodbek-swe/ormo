@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import SectionPlaceholder from '../_components/section-placeholder'
+import ReviewsView from './_components/reviews-view'
 
-export const metadata: Metadata = { title: "Sharhlar" }
+export const metadata: Metadata = { title: 'Sharhlar' }
 
-const AdminReviewsPage = () => <SectionPlaceholder href='/admin/reviews' />
+const AdminReviewsPage = () => <ReviewsView />
 
 export default AdminReviewsPage
