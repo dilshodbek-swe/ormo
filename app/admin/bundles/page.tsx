@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import SectionPlaceholder from '../_components/section-placeholder'
+import BundlesView from './_components/bundles-view'
 
 export const metadata: Metadata = { title: "To'plamlar" }
 
-const AdminBundlesPage = () => <SectionPlaceholder href='/admin/bundles' />
+const AdminBundlesPage = () => <BundlesView />
 
 export default AdminBundlesPage

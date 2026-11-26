@@ -16,8 +16,8 @@ import {
 	type LucideIcon,
 } from 'lucide-react'
 
-import { bundles } from '@/lib/data/bundles'
 import { catalogProducts } from '@/lib/data/catalog'
+import { sampleBundles } from '../bundles/_lib/sample-bundles'
 import { sampleCategories } from '../categories/_lib/sample-categories'
 import { sampleCoupons } from '../coupons/_lib/sample-coupons'
 import { getStatus } from '../coupons/_lib/types'
@@ -132,7 +132,7 @@ export const adminNav: AdminNavGroup[] = [
 				shortcut: 'B',
 				badge: 'bundles',
 				description: "Birga arzonroq sotiladigan mahsulot to'plamlari.",
-				planned: ["To'plam tarkibini tanlash", "Qo'shimcha chegirma foizi", 'Tavsif va tartib'],
+				planned: [],
 			},
 			{
 				href: '/admin/reviews',
@@ -212,5 +212,5 @@ export const getAdminBadges = (): Record<AdminBadge, number> => ({
 	products: catalogProducts.length,
 	categories: sampleCategories.length,
 	coupons: sampleCoupons.filter(coupon => getStatus(coupon) === 'active').length,
-	bundles: bundles.length,
+	bundles: sampleBundles.filter(bundle => bundle.visible).length,
 })
