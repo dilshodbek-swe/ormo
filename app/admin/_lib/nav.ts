@@ -155,7 +155,7 @@ export const adminNav: AdminNavGroup[] = [
 				icon: UsersRound,
 				shortcut: 'U',
 				description: "Ro'yxatdan o'tgan mijozlar, ularning rollari va buyurtmalari.",
-				planned: ['Qidiruv va rol bo‘yicha filtr', 'Admin rolini berish/olish', 'Mijoz buyurtmalari va manzillari'],
+				planned: [],
 			},
 			{
 				href: '/admin/messages',
